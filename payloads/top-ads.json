@@ -1,0 +1,5 @@
+{
+  "query": "skincare",
+  "time_range": "30d",
+  "sort_by": "likes"
+}

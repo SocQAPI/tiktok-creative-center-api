@@ -1,0 +1,352 @@
+{
+  "schemaVersion": 1,
+  "platform": "tiktok-creative-center",
+  "platformName": "TikTok Creative Center",
+  "baseUrl": "https://api.socq.ai",
+  "creditUsd": 0.005,
+  "endpoints": [
+    {
+      "publicId": "tiktok-creative-center/top-ads",
+      "name": "TikTok Creative Center Top Ads API",
+      "description": "Browse TikTok Creative Center's top-performing ads with optional keyword, period, and sort filters, returning captions, industry, objective, CTR, likes, and video files.",
+      "method": "POST",
+      "path": "/v1/tiktok-creative-center/top-ads",
+      "payload": "payloads/top-ads.json",
+      "launchedAt": "2026-11-17",
+      "price": "0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 0,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateResultCount": 20,
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/tiktok-creative-center/top-ads",
+      "landingUrl": "https://socq.ai/apis/tiktok-creative-center/top-ads",
+      "required": [],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "query": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Optional keyword to match against ad captions and brands."
+          },
+          "results_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 300,
+            "default": 20
+          },
+          "sort_by": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "likes",
+              "relevance"
+            ],
+            "default": "relevance",
+            "description": "relevance for TikTok's own order, or likes for the most-liked ads first."
+          },
+          "time_range": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "180d",
+              "30d",
+              "7d"
+            ],
+            "default": "30d",
+            "description": "Period the ads ran in: 7d, 30d or 180d."
+          }
+        },
+        "required": [],
+        "description": "All fields are optional. Returns top-performing TikTok ads with their click-through rate, likes and video; query narrows them by keyword. results_limit defaults to 20 and accepts 1 to 300."
+      }
+    },
+    {
+      "publicId": "tiktok-creative-center/ad-analysis",
+      "name": "TikTok Creative Center Ad Analysis API",
+      "description": "Analyze one TikTok Creative Center top ad by its ad ID, returning ad details, an impressions percentile, and second-by-second click-through and retention curves.",
+      "method": "POST",
+      "path": "/v1/tiktok-creative-center/ad-analysis",
+      "payload": "payloads/ad-analysis.json",
+      "launchedAt": "2026-11-17",
+      "price": "1 credit ($0.005) per call",
+      "billing": {
+        "baseCredits": 1,
+        "mode": "fixed"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/tiktok-creative-center/ad-analysis",
+      "landingUrl": "https://socq.ai/apis/tiktok-creative-center/ad-analysis",
+      "required": [
+        "ad_id"
+      ],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "ad_id": {
+            "type": "string",
+            "pattern": "^\\d{5,32}$",
+            "description": "Ad ID from TikTok Creative Center Top Ads results."
+          },
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "ad_id"
+        ],
+        "description": "ad_id is required; use an id from TikTok Creative Center Top Ads results. Returns one analysis with the ad's details, how its impressions rank among comparable ads, and second-by-second click-through and retention curves."
+      }
+    },
+    {
+      "publicId": "tiktok-creative-center/trending-hashtags",
+      "name": "TikTok Creative Center Trending Hashtags API",
+      "description": "Collect the hashtags trending in a country from TikTok Creative Center, returning rank, post and view counts, and a daily popularity curve over 7, 30, or 90 days.",
+      "method": "POST",
+      "path": "/v1/tiktok-creative-center/trending-hashtags",
+      "payload": "payloads/trending-hashtags.json",
+      "launchedAt": "2026-11-17",
+      "price": "0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 0,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateResultCount": 20,
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/tiktok-creative-center/trending-hashtags",
+      "landingUrl": "https://socq.ai/apis/tiktok-creative-center/trending-hashtags",
+      "required": [],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "country": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z]{2}$",
+            "default": "US",
+            "description": "Two-letter country code of the market, such as US, GB or JP."
+          },
+          "results_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "time_range": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "30d",
+              "7d",
+              "90d"
+            ],
+            "default": "7d",
+            "description": "Period the ranking covers: 7d, 30d or 90d."
+          }
+        },
+        "required": [],
+        "description": "All fields are optional. Returns the hashtags trending in a country, ranked, with post and view counts and a popularity curve. results_limit defaults to 20 and accepts 1 to 100."
+      }
+    },
+    {
+      "publicId": "tiktok-creative-center/trending-hashtag-detail",
+      "name": "TikTok Creative Center Hashtag Insights API",
+      "description": "Analyze one trending TikTok hashtag by its Creative Center ID, returning post and view totals, a daily popularity curve, top countries by index, and example video IDs.",
+      "method": "POST",
+      "path": "/v1/tiktok-creative-center/trending-hashtag-detail",
+      "payload": "payloads/trending-hashtag-detail.json",
+      "launchedAt": "2026-11-17",
+      "price": "0.5 credits ($0.0025) per call",
+      "billing": {
+        "baseCredits": 0.5,
+        "mode": "fixed"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/tiktok-creative-center/trending-hashtag-detail",
+      "landingUrl": "https://socq.ai/apis/tiktok-creative-center/trending-hashtag-detail",
+      "required": [
+        "hashtag_id"
+      ],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "country": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z]{2}$",
+            "default": "US",
+            "description": "Two-letter country code of the market, such as US, GB or JP."
+          },
+          "hashtag_id": {
+            "type": "string",
+            "pattern": "^\\d{5,32}$",
+            "description": "Hashtag ID from TikTok Creative Center Trending Hashtags results."
+          },
+          "time_range": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "30d",
+              "7d",
+              "90d"
+            ],
+            "default": "7d",
+            "description": "Period to analyze: 7d, 30d or 90d."
+          }
+        },
+        "required": [
+          "hashtag_id"
+        ],
+        "description": "hashtag_id is required; use an id from TikTok Creative Center Trending Hashtags results, with the same country. Returns one result with the hashtag's post and view counts, popularity curve, top countries and example videos."
+      }
+    },
+    {
+      "publicId": "tiktok-creative-center/top-videos",
+      "name": "TikTok Creative Center Top Videos API",
+      "description": "Collect TikTok Creative Center's chart of top-performing videos for a country, returning rank, caption, creator, chart-period and lifetime views, and engagement rates.",
+      "method": "POST",
+      "path": "/v1/tiktok-creative-center/top-videos",
+      "payload": "payloads/top-videos.json",
+      "launchedAt": "2026-11-17",
+      "price": "0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 0,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateResultCount": 20,
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/tiktok-creative-center/top-videos",
+      "landingUrl": "https://socq.ai/apis/tiktok-creative-center/top-videos",
+      "required": [],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "country": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^[A-Za-z]{2}$",
+            "default": "US",
+            "description": "Two-letter country code of the market, such as US, GB or JP."
+          },
+          "period": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Chart to read: daily, weekly or long_term.",
+            "enum": [
+              "daily",
+              "long_term",
+              "weekly"
+            ],
+            "default": "daily"
+          },
+          "results_limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 20
+          },
+          "sort_by": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "engagement_rate",
+              "six_second_view_rate",
+              "views"
+            ],
+            "default": "views",
+            "description": "Ranking metric: views, engagement_rate or six_second_view_rate."
+          }
+        },
+        "required": [],
+        "description": "All fields are optional. Returns the latest published chart of top-performing TikTok videos in a country, with views, engagement rate and six-second view rate. results_limit defaults to 20 and accepts 1 to 100."
+      }
+    },
+    {
+      "publicId": "tiktok-creative-center/creator-cards",
+      "name": "TikTok Creator Marketplace API",
+      "description": "Retrieve TikTok Creator Marketplace cards by creator ID, returning follower age, gender, country, and device breakdowns, median views, engagement rate, and starting rates.",
+      "method": "POST",
+      "path": "/v1/tiktok-creative-center/creator-cards",
+      "payload": "payloads/creator-cards.json",
+      "launchedAt": "2026-11-17",
+      "price": "0.5 credits ($0.0025) per result",
+      "billing": {
+        "baseCredits": 0,
+        "mode": "base_plus_result",
+        "resultUnitSize": 1,
+        "resultUnitCredits": 0.5,
+        "estimateInputField": "creator_ids",
+        "emptyResultPolicy": "base_only"
+      },
+      "docsUrl": "https://docs.socq.ai/api-manual/tiktok-creative-center/creator-cards",
+      "landingUrl": "https://socq.ai/apis/tiktok-creative-center/creator-cards",
+      "required": [
+        "creator_ids"
+      ],
+      "requiredAnyOf": [],
+      "mutuallyExclusive": [],
+      "requestSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "callback_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "creator_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[0-9]{5,32}$"
+            },
+            "minItems": 1,
+            "description": "Creator Marketplace IDs, such as creator_id values from TikTok Creative Center Top Videos results.",
+            "maxItems": 20
+          }
+        },
+        "required": [
+          "creator_ids"
+        ],
+        "description": "creator_ids is required: 1 to 20 Creator Marketplace IDs, such as creator_id values from TikTok Creative Center Top Videos results. Returns one card per creator with audience demographics, performance benchmarks and rates."
+      }
+    }
+  ]
+}

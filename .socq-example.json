@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "templateVersion": "2.0.0",
+  "kind": "platform",
+  "platform": "tiktok-creative-center",
+  "endpointCount": 6,
+  "endpoints": [
+    "tiktok-creative-center/top-ads",
+    "tiktok-creative-center/ad-analysis",
+    "tiktok-creative-center/trending-hashtags",
+    "tiktok-creative-center/trending-hashtag-detail",
+    "tiktok-creative-center/top-videos",
+    "tiktok-creative-center/creator-cards"
+  ],
+  "landingPage": "https://socq.ai/apis/tiktok-creative-center",
+  "docsPage": "https://docs.socq.ai/api-manual/tiktok-creative-center/overview",
+  "generatedFrom": "SocQAPI/socq-example-template"
+}
